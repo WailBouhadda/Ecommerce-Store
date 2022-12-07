@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBconnection {
+public class DBConnection {
 
-	public DBconnection() {
+	public DBConnection() {
 		// TODO Auto-generated constructor stub
 		}
 	
@@ -17,7 +17,7 @@ public class DBconnection {
 		private static String driver	= "com.mysql.jdbc.Driver";
 		
 		
-		private	static String url 		= "jdbc:mysql://localhost:3306/binome";
+		private	static String url 		= "jdbc:mysql://localhost:3306/ecomercedb";
 		private	static String username = "root";
 		private	static String pass 	= "";	
 		/*
