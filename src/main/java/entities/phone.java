@@ -9,9 +9,10 @@ public class phone {
 	private int id;
 	private String name;
 	private String image;
-	private int details;
+	private String details;
 	private Date date;
 	private double price;
+	private int quantity;
 
 	
 	
@@ -65,14 +66,14 @@ public class phone {
 
 
 
-	public int getDetails() {
+	public String getDetails() {
 		return details;
 	}
 
 
 
 
-	public void setDetails(int details) {
+	public void setDetails(String details) {
 		this.details = details;
 	}
 
@@ -103,6 +104,22 @@ public class phone {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	
 	
 	
 	

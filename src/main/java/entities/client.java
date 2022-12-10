@@ -4,7 +4,8 @@ public class client {
 
 	
 	private int id;
-	private String username;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String phone;
 	
@@ -20,13 +21,22 @@ public class client {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 
 	public String getEmail() {
 		return email;

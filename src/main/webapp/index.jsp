@@ -3,6 +3,25 @@
 <jsp:include page="header.jsp"></jsp:include>    
 
 
+  <%@page import="java.util.*"%>
+  <%@page import="java.io.*"%>
+  <%@page import="entities.categorie"%>
+  <%@page import="dao.categorieDAO"%>
+  
+<%
+
+	HttpSession ss = request.getSession();
+	
+	categorieDAO cdao = new categorieDAO();
+	
+	ArrayList<categorie> categos = cdao.getcategories();
+	
+%>
+ 
+
+
+
+
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -14,8 +33,21 @@
                             <span>All departments</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
+                       <% 
+                       if(categos != null){	
+	
+							for(int i = 0 ; i < categos.size() ; i++){
+								categorie c = new categorie();
+								c = categos.get(i);
+										
+								int idcategorie = c.getId();
+								String nomcat = c.getName();
+						%>
+                            <li><a href="Categorie?c=<%=idcategorie%>"><%=nomcat%></a></li>
+                            
+                        <%}}else{ %>
+							<p style="color:red;"><i style="margin-right:10px;" class="fa-solid fa-triangle-exclamation"></i>UNE ERREUR EST SURVENUE</p>
+						<%} %>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                    <div class="hero__item set-bg" data-setbg="img/hero/banner.png">
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
