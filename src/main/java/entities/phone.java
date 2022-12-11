@@ -13,9 +13,24 @@ public class phone {
 	private Date date;
 	private double price;
 	private int quantity;
+	private int categorie;
 
 	
 	
+
+	public int getCategorie() {
+		return categorie;
+	}
+
+
+
+
+	public void setCategorie(int categorie) {
+		this.categorie = categorie;
+	}
+
+
+
 
 	public phone() {
 		// TODO Auto-generated constructor stub
