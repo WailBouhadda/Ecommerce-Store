@@ -40,7 +40,7 @@ public class phoneDAO {
 					p.setDetails(rs.getString(3));
 					p.setImage(rs.getString(4));
 					p.setQuantity(rs.getInt(5));
-					p.setPrice(rs.getInt(6));
+					p.setPrice(rs.getDouble(6));
 					p.setDate(rs.getDate(7));
 					p.setCategorie(rs.getInt(8));
 					

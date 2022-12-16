@@ -4,4 +4,13 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  
+  <servlet>
+      <servlet-name>actionCategorie</servlet-name>
+      <servlet-class>controlers.actionCategorie</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>actionCategorie</servlet-name>
+      <url-pattern>/ADMIN/actionCategorie</url-pattern>
+   </servlet-mapping>
 </web-app>

@@ -731,6 +731,7 @@ ol {
 	display: flex;
 	align-items: center;
 	padding-left: 75px;
+	margin-top: 50px;
 }
 
 .hero__text span {
@@ -993,11 +994,12 @@ ol {
 .latest-product__item__pic {
 	float: left;
 	margin-right: 26px;
+	
+	width:150px;
 }
 
 .latest-product__item__pic img {
-	height: 110px;
-	width: 110px;
+	height: 100%;
 }
 
 .latest-product__item__text {

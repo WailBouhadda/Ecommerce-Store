@@ -103,6 +103,33 @@ public class categorieDAO {
 	}
 	
 	
+	
+	public int countPhonesByCategorie(int id){
+		
+		int count = 0;
+		if(DBConnection.connect() != null) {
+				try {
+					
+					rs = DBConnection.get("select count(*) from phone where categorie = "+id);
+
+					
+					if(rs.next()) {
+						
+						count = rs.getInt(1);
+						
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		return count;
+	}
+	
+	
+	
 	public int deleteCategorieById(int id) {
 		int statut = 0;
 				
@@ -118,8 +145,6 @@ public class categorieDAO {
 		
 	}
 
-	
-	
 	
 
 }
