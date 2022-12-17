@@ -32,7 +32,8 @@ public class clientDAO {
 						c.setFirstName(rs.getString(2));
 						c.setLastName(rs.getString(3));
 						c.setEmail(rs.getString(4));
-						c.setPassword(rs.getString(5));
+						c.setPhone(rs.getString(5));
+						c.setPassword(rs.getString(6));
 						
 						clients.add(c);
 					}
@@ -64,7 +65,8 @@ public client getClientById(int id){
 						c.setFirstName(rs.getString(2));
 						c.setLastName(rs.getString(3));
 						c.setEmail(rs.getString(4));
-						c.setPassword(rs.getString(5));
+						c.setPhone(rs.getString(5));
+						c.setPassword(rs.getString(6));
 						
 					}
 				} catch (SQLException e) {
@@ -75,5 +77,64 @@ public client getClientById(int id){
 		
 		return c;
 	}
+
+public client login(String email, String password) {
+	client c = null;
+	
+	if(DBConnection.connect()!=null) {
+		
+		
+		rs = DBConnection.get("select * from client where email ='"+email+"' and password ='"+password+"'");
+		
+		try {
+			while(rs.next()) {
+				c = new client();
+				c.setId(rs.getInt(1));
+				c.setFirstName(rs.getString(2));
+				c.setLastName(rs.getString(3));
+				c.setEmail(rs.getString(4));
+				c.setPhone(rs.getString(5));;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return c;
+}
+
+public client register(client c) {
+	
+	client c1= null;
+	
+	if(DBConnection.connect()!=null) {
+		
+		
+		int res = DBConnection.update("insert into client(firstName, lastName, email, phone, password) "
+				+ "values('"+c.getFirstName()+"','"+c.getLastName()+"','"+c.getEmail()+"','"+c.getPhone()+"','"+c.getPassword()+"')");
+		
+		rs = DBConnection.get("select * from client where email ='"+c.getEmail()+"' and password ='"+c.getPassword()+"'");
+		
+		try {
+			while(rs.next()) {
+				
+				c1 = new client();
+				
+				c1.setId(rs.getInt(1));
+				c1.setFirstName(rs.getString(2));
+				c1.setLastName(rs.getString(3));
+				c1.setEmail(rs.getString(4));
+				c1.setPhone(rs.getString(5));;
+				
+			} 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return c1;
+	
+}
 	
 }

@@ -5,15 +5,28 @@
   <%@page import="java.io.*"%>
   <%@page import="entities.categorie"%>
   <%@page import="dao.categorieDAO"%>
-  
+  <%@page import="entities.client"%>
+  <%@page import="entities.cart"%>
 <%
 
-	HttpSession ss = request.getSession();
+	
 	
 	categorieDAO cdao = new categorieDAO();
 	
 	ArrayList<categorie> categos = cdao.getcategories();
 	
+	client cli = (client)session.getAttribute("client");
+	
+	cart cart = new cart();
+	if(session.getAttribute("cart")!=null){
+		
+		cart = (cart)session.getAttribute("cart");
+		
+	}else{
+		ArrayList<Integer> products = new ArrayList<Integer>();
+		cart.setProducts(products);
+		cart.setTotal(0);
+	}
 	
 %>
  
@@ -28,7 +41,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>Ogani | Store</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -58,23 +71,18 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="cart.jsp"><i class="fa fa-shopping-bag"></i> <span><%=cart.getProducts().size() %></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__cart__price">item: <span>$<%=cart.getTotal() %></span></div>
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+            	<% if(cli != null){ %>
+            		<a href="#"><i class="fa fa-user"></i> <%=cli.getFirstName()+" "+cli.getLastName() %></a>
+            	<%}else{ %>
+                	<a href="login.jsp"><i class="fa fa-user"></i> Login</a>
+                	<a href="register.jsp"><i class="fa fa-user"></i> Register</a>
+                <%} %>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -103,7 +111,7 @@
         <div class="humberger__menu__contact">
             <ul>
                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
+                <li>Free Shipping for all Order of $1500</li>
             </ul>
         </div>
     </div>
@@ -118,7 +126,7 @@
                         <div class="header__top__left">
                             <ul>
                                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                                <li>Free Shipping for all Order of $1500</li>
                             </ul>
                         </div>
                     </div>
@@ -130,17 +138,12 @@
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <% if(cli != null){ %>
+				            		<a href="cart.jsp"><i class="fa fa-user"></i> <%=cli.getFirstName()+" "+cli.getLastName() %></a>
+				            	<%}else{ %>
+				                	<a href="login.jsp"><i class="fa fa-user"></i> Login</a>
+				                <%} %>
                             </div>
                         </div>
                     </div>
@@ -167,10 +170,9 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="car.jsp"><i class="fa fa-shopping-bag"></i> <span><%=cart.getProducts().size() %></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span>$<%=cart.getTotal() %></span></div>
                     </div>
                 </div>
             </div>
@@ -198,7 +200,6 @@
 							for(int i = 0 ; i < categos.size() ; i++){
 								categorie c = new categorie();
 								c = categos.get(i);
-										
 						%>
                             <li><a href="Categorie?c=<%=c.getId()%>"><%=c.getName()%></a></li>
                             

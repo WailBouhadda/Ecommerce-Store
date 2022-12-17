@@ -16,7 +16,6 @@
 
 int id = Integer.parseInt(request.getParameter("id"));
 
-HttpSession ss = request.getSession();
 
 phoneDAO pdao = new phoneDAO();
 

@@ -25,6 +25,14 @@
       <url-pattern>/ADMIN/actionPhone</url-pattern>
    </servlet-mapping>
    
+   <servlet>
+      <servlet-name>accountClient</servlet-name>
+      <servlet-class>controlers.accountClient</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>accountClient</servlet-name>
+      <url-pattern>/accountClient</url-pattern>
+   </servlet-mapping>
    
    
 </web-app>

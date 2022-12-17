@@ -73,14 +73,14 @@
           </li>
           <li class="nav-item">
             <a href="orders.jsp" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-truck-fast"></i>
               <p>
                 Orders
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="users.jsp" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -88,8 +88,8 @@
             </a>
           </li> 
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="logout" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Logout
               </p>

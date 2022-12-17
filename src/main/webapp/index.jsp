@@ -11,8 +11,6 @@
   <%@page import="dao.phoneDAO"%>
   
 <%
-
-	HttpSession ss = request.getSession();
 	
 	categorieDAO cdao = new categorieDAO();
 	
@@ -105,7 +103,7 @@
 									categorie c1 = cdao.getcategorieById(p.getCategorie());
 										
 				%>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix <%=c1.getName() %>">
+                <div style="margin-bottom:50px" class="col-lg-3 col-md-4 col-sm-6 mix <%=c1.getName() %>">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="phones/<%=p.getImage()%>">
                             <ul class="featured__item__pic__hover">

@@ -7,6 +7,7 @@ public class client {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String phone;
 	private String password;
 	
 	public client() {
@@ -52,6 +53,14 @@ public class client {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	

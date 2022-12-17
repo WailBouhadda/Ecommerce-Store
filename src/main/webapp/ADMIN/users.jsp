@@ -9,9 +9,13 @@
   <%@page import="dao.phoneDAO"%>
   <%@page import="entities.order"%>
   <%@page import="dao.orderDAO"%>
+  <%@page import="entities.client"%>
+  <%@page import="dao.clientDAO"%>
   
   <%
   
+  
+  	int cid = 0;
   
   	int res;
 	
@@ -24,11 +28,9 @@
 		res = 0;
 	}
 	
-	
-	HttpSession s = request.getSession();
 
 
-	s.setAttribute("source", "orders.jsp");
+	session.setAttribute("source", "users.jsp");
 	
 	categorieDAO cdao = new categorieDAO();
 	
@@ -40,8 +42,9 @@
 	
 	orderDAO odao = new orderDAO();
 	
-	ArrayList<order> orders = odao.getOrders();
+	clientDAO udao = new clientDAO();
 	
+	ArrayList<client> users = udao.getClients();
 %>
     
   
@@ -92,7 +95,7 @@
   <style>
   	.tddis{
   		display:flex;
-  		justify-content:space-between;
+  		justify-content:center;
   	}
   	.alertG{
 		
@@ -156,12 +159,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Orders</h1>
+            <h1 class="m-0">Users</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Orders</li>
+              <li class="breadcrumb-item active">Users</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -178,7 +181,7 @@
       <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Orders Liste</h3>
+                <h3 class="card-title">Users Liste</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body col-md-12">
@@ -186,35 +189,35 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Date</th>
-                    <th>Products</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Client</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                     <th>Operations</th>
                   </tr>
                   </thead>
                   <tbody>
                   	<% 
-		              if(orders != null){	
+		              if(users != null){	
 			
-						for(order o : orders){
+						for(client u : users){
 							
 							//categorie c = cdao.getcategorieById(p.getCategorie());
+							
+							ArrayList<order> orders = odao.getOrdersByClient(u.getId());
 									
 					%>
 					
 					
 					
-					<tr class="<%=o.getId() %>">      
+					<tr class="<%=u.getId() %>">      
                   
-                      <td><%=o.getId() %></td>
-                      <td><%=o.getDate() %></td>
-                      <td><%=o.getProducts() %></td>
-                      <td><%=o.getTotal() %></td>
-                      <td><span class="badge badge-success">Shipped</span></td>                      
-                      <td><%=o.getClient() %></td>
-                      <td class="tddis" ><a  class="btn btn-danger" id="supprimer" href="actionPhone?d=<%=o.getId() %>" >Delete</a><a  class="btn btn-warning" id="supprimer" href="updatePhone.jsp?p=<%=o.getId() %>" >Update</a></td>               
+                      <td><%=u.getId() %></td>
+                      <td><%=u.getFirstName() %></td>
+                      <td><%=u.getLastName() %></td>
+                      <td><%=u.getEmail() %></td>
+                      <td><%=u.getPhone() %></td>
+                      <td class="tddis" ><button   class="btn btn-success" id="supprimer" onclick="<%cid = u.getId(); %>" ><i class="fas fa-eye" style="margin-right:5px;"></i>Orders</button></td>               
                   	
                   	</tr>
                    
@@ -225,11 +228,10 @@
                   <tfoot>
                   <tr>
                     <th>ID</th>
-                    <th>Date</th>
-                    <th>Products</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Client</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                     <th>Operations</th>
                   </tr>
                   </tfoot>
@@ -242,9 +244,65 @@
           <!-- /.col -->                       
     </div>
     <!-- /.row -->
-      </div>
-    </section>
+    
+    
+        
+    <%
+    if(users.size() >0){
+		
+		int size = 0; 
+		
+		if(users.size() > 3){
+			
+			size = 3;
+		}else{
+			size = users.size();
+		}
+		
+	for(int i = 0 ; i < size ; i++){}}
+	%>
+    
+    <!-- row -->
+    <div class="row col-md-12">
+      <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Last orders</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body col-md-12">
+					<div class="col-md-3">
+		            <div class="card card-danger">
+		              <div class="card-header">
+		                <h3 class="card-title"><%=cid %></h3>
+		
+		                <div class="card-tools">
+		                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+		                  </button>
+		                </div>
+		                <!-- /.card-tools -->
+		              </div>
+		              <!-- /.card-header -->
+		              <div class="card-body">
+		                The body of the card
+		              </div>
+		              <!-- /.card-body -->
+		            </div>
+		            <!-- /.card -->
+		          </div>
+		          <!-- /.col -->
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->                       
+    </div>
+    <!-- /.row -->
 
+	
+   </div>
+ </section>
 </div>
 
 

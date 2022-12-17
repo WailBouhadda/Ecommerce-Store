@@ -59,14 +59,22 @@
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
-	                                    <% phones.sort(Comparator.comparing(o -> phones.get(0).getDate()));
-		                                	for(phone p : phones){ 
-		                              
+	                                    <% 
+	                                    int size = 0;
+	                                    if(phones.size() > 3){
+	                                    	size = 3;
+	                                    }else{
+	                                    	size = phones.size();
+	                                    }
+	                                    phones.sort(Comparator.comparing(o -> phones.get(0).getDate()));
+		                                	for(int i = size ; i > 0 ; i--){ 
+		                              			
+		                                		phone p = phones.get(i);
 					
 	                                	%>
 	                                        <a href="#" class="latest-product__item">
 	                                            <div class="latest-product__item__pic">
-	                                                <img src="phones/<%=p.getImage() %>" alt="">
+	                                                <img style="width:fit-content;" src="phones/<%=p.getImage() %>" alt="">
 	                                            </div>
 	                                            <div class="latest-product__item__text">
 	                                                <h6><%=p.getName() %></h6>

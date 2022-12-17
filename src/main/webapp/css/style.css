@@ -761,6 +761,7 @@ ol {
 .categories__item {
 	height: 270px;
 	position: relative;
+	background-size: contain;
 }
 
 .categories__item h5 {
@@ -852,6 +853,7 @@ ol {
 
 .featured__item {
 	margin-bottom: 50px;
+	height:300px;
 }
 
 .featured__item:hover .featured__item__pic .featured__item__pic__hover {
@@ -859,7 +861,8 @@ ol {
 }
 
 .featured__item__pic {
-	height: 270px;
+	height: 100%;
+	background-size:contain;
 	position: relative;
 	overflow: hidden;
 	background-position: center center;
@@ -994,12 +997,13 @@ ol {
 .latest-product__item__pic {
 	float: left;
 	margin-right: 26px;
-	
-	width:150px;
+	width: 100px;
+    height: 100px;
 }
 
 .latest-product__item__pic img {
 	height: 100%;
+	width: fit-content;
 }
 
 .latest-product__item__text {
@@ -1540,6 +1544,8 @@ ol {
 	height: 270px;
 	position: relative;
 	overflow: hidden;
+	background-size:contain;
+	
 }
 
 .product__item__pic__hover {
