@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
-    
   <%@page import="java.util.*"%>
   <%@page import="java.io.*"%>
   <%@page import="entities.categorie"%>
   <%@page import="dao.categorieDAO"%>
   <%@page import="entities.phone"%>
   <%@page import="dao.phoneDAO"%>
+  <%@page import="entities.order"%>
+  <%@page import="dao.orderDAO"%>
   
-<%
-
-	int res;
+  <%
+  
+  
+  	int res;
 	
 	if(request.getParameter("res") != null){
 		
@@ -22,12 +23,12 @@
 		
 		res = 0;
 	}
-
-
+	
+	
 	HttpSession s = request.getSession();
 
 
-	s.setAttribute("source", "categories.jsp");
+	s.setAttribute("source", "phones.jsp");
 	
 	categorieDAO cdao = new categorieDAO();
 	
@@ -37,14 +38,17 @@
 	
 	ArrayList<phone> phones = pdao.getPhones();
 	
+	orderDAO odao = new orderDAO();
+	
+	ArrayList<order> orders = odao.getOrders();
+	
 %>
-      
-
-
+    
+  
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -145,19 +149,19 @@
 
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <div id="alert" class="alertG" >
+  <div id="alert" class="alertG" >
 		  </div>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Categories</h1>
+            <h1 class="m-0">Phones</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Categories v1</li>
+              <li class="breadcrumb-item active">Phones</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -168,43 +172,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      	<div class="row">
-          <!-- right column -->
-          <div class="col-md-12">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Add Categorie</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form action="actionCategorie" method="post">
-                <div class="card-body">
-                	<div class="col-md-12">
-                       <div class="form-group">
-                         <label for="categorie">Categorie name</label>
-                         <input type="text" class="form-control" name="categorie" id="categorie" placeholder="Categorie">
-                       </div>
-                    </div>
-                <div>
-                <div class="card-footer">
-                      <button type="submit" name="action" value="Add" class="btn btn-primary">Add</button>
-                      <button type="reset" class="btn btn-danger">Clear</button>
-                </div>
-                </div>
-              </form>
-            </div>
-            <!-- /.card -->
-          </div>
-          <!--/.col (right) -->
-    	</div>
-    	<!-- /.row -->
+      
     	<!-- row -->
     <div class="row col-md-12">
       <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Categories list</h3>
+                <h3 class="card-title">Phones Liste</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body col-md-12">
@@ -212,30 +186,35 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Total phones</th>
+                    <th>Date</th>
+                    <th>Products</th>
+                    <th>Total</th>
+                    <th>Client</th>
                     <th>Operations</th>
                   </tr>
                   </thead>
                   <tbody>
                   	<% 
-		              if(categos != null){	
+		              if(orders != null){	
 			
-						for(categorie c : categos){
+						for(order o : orders){
+							
+							//categorie c = cdao.getcategorieById(p.getCategorie());
 									
 					%>
 					
 					
 					
-					<tr class="<%=c.getId() %>">      
-                   <form action="actionCategorie" method="post">
-                      <td><input style="border: none;background: transparent;" class="<%=c.getId() %>" type="text" name="id" value="<%=c.getId() %>" readonly></td>
-                      <td><input style="border: none;background: transparent;" class="<%=c.getId() %>" type="text" name="name" value="<%=c.getName() %>" disabled></td>
-                      <td><input style="border: none;background: transparent;" class="<%=c.getId() %>" type="text" name="phones" value="<%=cdao.countPhonesByCategorie(c.getId()) %>" readonly></td>
-                      <td class="tddis" ><input  class="<%=c.getId() %> btn btn-danger" id="supprimer" type="submit" name="action" value="delete"><input   class="<%=c.getId() %> btn btn-warning" id="modifier" type="button" name="action" value="update" onclick="update(<%=c.getId() %>)"></td>
-                  </form>
-               
-                  </tr>
+					<tr class="<%=o.getId() %>">      
+                  
+                      <td><%=o.getId() %></td>
+                      <td><%=o.getDate() %></td>
+                      <td><%=o.getProducts() %></td>
+                      <td><%=o.getTotal() %></td>
+                      <td><%=o.getClient() %></td>
+                      <td class="tddis" ><a  class="btn btn-danger" id="supprimer" href="actionPhone?d=<%=o.getId() %>" >Delete</a><a  class="btn btn-warning" id="supprimer" href="updatePhone.jsp?p=<%=o.getId() %>" >Update</a></td>               
+                  	
+                  	</tr>
                    
                 	<%}}else{ %>
 									<p style="color:red;"><i style="margin-right:10px;" class="fa-solid fa-triangle-exclamation"></i>UNE ERREUR EST SURVENUE</p>
@@ -244,8 +223,10 @@
                   <tfoot>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Total phones</th>
+                    <th>Date</th>
+                    <th>Products</th>
+                    <th>Total</th>
+                    <th>Client</th>
                     <th>Operations</th>
                   </tr>
                   </tfoot>
@@ -261,10 +242,7 @@
       </div>
     </section>
 
-
 </div>
-
-
 
 
 
@@ -295,9 +273,10 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
 <script src="dist/js/script.js"></script>
 
-<script src="dist/js/demo.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -317,7 +296,57 @@
 <!-- Change Rows to input by clicking Update button -->
 
 
-	alert(<%=res%>);
+alert(<%=res%>);
+
+function update(id){
+	
+
+	var input = document.querySelectorAll("input");
+	var but =  document.getElementsByName("action");
+	var row = document.querySelectorAll("tr");
+	var delet = "";
+	var del = "";
+	var Srow = "";
+	var update = "";
+
+	for(var i = 0 ; i < but.length ; i++){
+		if(but[i].value === "update" && but[i].classList[0] == id){
+			update = but[i];	
+		}
+		
+	}
+		
+	for(var i = 0 ; i < row.length ; i++){
+		if(row[i].classList[0] == id){	
+			Srow = row[i];			
+			Srow.style = "background-color: #b5b5b544;"
+		}
+	}
+	
+	for(var i = 0 ; i < input.length ; i++){
+	if(input[i].classList[0] == id){	
+		if(input[i].disabled){
+			input[i].disabled = false;
+		}
+		
+		if(input[i].value === "delete"){
+			delet = input[i];
+			delet.value ="cancel";
+			
+		}
+	
+	}
+	
+	update.onclick = function(){
+		
+		Srow.style = "background-color: white;"
+		this.type="submit";
+		delet.value = "delete";
+	}	
+	
+
+}
+}
 
   $(function () {
     //Initialize Select2 Elements
@@ -470,7 +499,6 @@
     });
   });
 </script>
-
 
 </body>
 </html>

@@ -144,6 +144,21 @@ public class categorieDAO {
 		return statut;
 		
 	}
+	
+	public int updateCategorie(int id, String name) {
+		
+		int res = 0;
+		
+		if(DBConnection.connect() != null) {	
+
+			res = DBConnection.update("update categorie set name = '"+name+"' where id =" + id);
+
+		}else {
+			res = -1;
+		}
+		
+		return res;
+	}
 
 	
 

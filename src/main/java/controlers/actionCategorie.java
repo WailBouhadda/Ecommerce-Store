@@ -39,7 +39,7 @@ public class actionCategorie extends HttpServlet {
 		
 		String action = request.getParameter("action");
 				
-		int result = 0;
+		int res = 0;
 		
 		if(action != null) {	
 
@@ -48,26 +48,33 @@ public class actionCategorie extends HttpServlet {
 				String cate = request.getParameter("categorie");
 				c1.setName(cate);
 				
-				result = cdao.addcategorie(c1);
-				request.getRequestDispatcher(source+"?result="+result).forward(request, response);
+				res = cdao.addcategorie(c1);
+				request.getRequestDispatcher(source+"?res="+res).forward(request, response);
 				
-			}else if(action.equals("Delete")) {
+			}else if(action.equals("delete")) {
 				
 				int id = Integer.parseInt(request.getParameter("id"));
 				
-				int  delete = cdao.deleteCategorieById(id);
+				res = cdao.deleteCategorieById(id);
 				
-				s.setAttribute("result", delete);
-				
-				result = delete;
-				
-				request.getRequestDispatcher(source+"?result="+result).forward(request, response);
+				request.getRequestDispatcher(source+"?res="+res).forward(request, response);
 				
 
-			}else{
+			}else if(action.equals("update")){
 				
-				response.sendRedirect(source);
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
 				
+				
+				res = cdao.updateCategorie(id, name);
+				
+				request.getRequestDispatcher(source+"?res="+res).forward(request, response);
+				
+			}
+			else {
+				
+				res = -1;
+				request.getRequestDispatcher(source+"?res="+res).forward(request, response);
 			}
 		}
 	}

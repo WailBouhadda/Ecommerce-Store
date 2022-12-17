@@ -1,50 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
-    
-  <%@page import="java.util.*"%>
+      <%@page import="java.util.*"%>
   <%@page import="java.io.*"%>
   <%@page import="entities.categorie"%>
   <%@page import="dao.categorieDAO"%>
   <%@page import="entities.phone"%>
   <%@page import="dao.phoneDAO"%>
   
-<%
+  <%
+  
+  	
+  		int id  = -1;
+  		if(request.getParameter("p")!= null){
+  			
+  			id = Integer.parseInt(request.getParameter("p"));
+  		}else{
+  			response.sendRedirect("phones.jsp");
+  		}
 
-	int res;
+  
+  
+	  int res;
 	
-	if(request.getParameter("res") != null){
-		
-		res = Integer.parseInt(request.getParameter("res"));
-		
-	}else{
-		
-		res = 0;
-	}
-
-
-	HttpSession s = request.getSession();
-
-
-	s.setAttribute("source", "categories.jsp");
+	  if(request.getParameter("res") != null){
+	  	
+	  	res = Integer.parseInt(request.getParameter("res"));
+	  	
+	  }else{
+	  	
+	  	res = 0;
+	  }
+	
+	
+	  
+	session.setAttribute("source", "updatePhone.jsp");
 	
 	categorieDAO cdao = new categorieDAO();
 	
 	ArrayList<categorie> categos = cdao.getcategories();
 	
 	phoneDAO pdao = new phoneDAO();
-	
-	ArrayList<phone> phones = pdao.getPhones();
+		
+	phone p = pdao.getPhoneById(id);
 	
 %>
-      
-
-
+    
+  
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -90,51 +96,6 @@
   		display:flex;
   		justify-content:space-between;
   	}
-  	.alertG{
-		
-	position: absolute;
-    top: 50px;
-    left: 40%;
-    background-color: #d1e7dd;
-    width: fit-content;
-    padding: 15px;
-    margin: 20px;
-    border-radius: 10px;
-    color: #0f5132;
-    border: 1px solid #badbcc;
-    font-family: var(--font-rolway);
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 20px;
-    z-index:500;
-    
-    
-	
-}
-
-.alertR{
-	
-	position: absolute;
-    top:50px;
-    left: 40%;
-    background-color: #f8d7da;
-    width: fit-content;
-    padding: 15px;
-    margin: 20px;
-    border-radius: 10px;
-    color: #842029;
-    border: 1px solid #f5c2c7;
-    font-family: var(--font-rolway);
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 20px;
-    z-index:500;
-	
-}
   </style>
 </head>
 
@@ -145,19 +106,17 @@
 
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <div id="alert" class="alertG" >
-		  </div>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Categories</h1>
+            <h1 class="m-0">Update phone</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Categories v1</li>
+              <li class="breadcrumb-item active">Update phone</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -168,28 +127,81 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      	<div class="row">
+    		<div class="row">
           <!-- right column -->
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add Categorie</h3>
+                <h3 class="card-title">Update phone</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="actionCategorie" method="post">
+              <form action="actionPhone" method="post" enctype="multipart/form-data">
+              <input type="text" name="id" style="display:none" value="<%=id %>">
                 <div class="card-body">
                 	<div class="col-md-12">
-                       <div class="form-group">
-                         <label for="categorie">Categorie name</label>
-                         <input type="text" class="form-control" name="categorie" id="categorie" placeholder="Categorie">
+                	  <div class="form-group">
+                        <label for="exampleInputFile">Phone image</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="image" >
+                            <label class="custom-file-label" for="exampleInputFile">Choose image</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                	<div class="col-md-12">
+                		<div class="row">
+	                		<div class="col-md-6">
+		                       <div class="form-group">
+		                         <label for="categorie">Phone name</label>
+		                         <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="<%=p.getName() %>" required>
+		                       </div>
+	                       </div>
+	                       <div class="col-md-6">
+		                       <div class="form-group">
+				                  <label>Categorie</label>
+				                  <select class="form-control select2" style="width: 100%;" name="categorie" required>
+				                    <%if(categos != null){ 
+								  for(categorie c : categos){
+										
+								   %>
+								    <option value="<%=c.getId() %>"   <%if(c.getId() == p.getCategorie() ){ %>selected="selected"<%} %>	><%=c.getName() %></option>
+								  <% }} %>
+				                  </select>
+				                </div>
+	                       </div>
+                       </div>
+                    </div>
+                    <div class="col-md-12">
+                      	<!-- textarea -->
+                      	<div class="form-group">
+                        	<label>Description</label>
+                        	<textarea class="form-control" rows="2" name="description" placeholder="Description ..." value="<%=p.getDetails() %>" required><%=p.getDetails() %></textarea>
+                      	</div>
+                    </div>
+                    <div class="col-md-12">
+                		<div class="row">
+	                		<div class="col-md-6">
+		                       <div class="form-group">
+		                         <label for="categorie">Price</label>
+		                         <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="<%=p.getPrice() %>" required>
+		                       </div>
+	                       </div>
+	                       <div class="col-md-6">
+		                       <div class="form-group">
+		                         <label for="categorie">Quantity</label>
+		                         <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity" value="<%=p.getQuantity() %>" required>
+		                       </div>
+	                       </div>
                        </div>
                     </div>
                 <div>
                 <div class="card-footer">
-                      <button type="submit" name="action" value="Add" class="btn btn-primary">Add</button>
+                      <button type="submit" name="u" value="Add" class="btn btn-primary">Update</button>
                       <button type="reset" class="btn btn-danger">Clear</button>
+                </div>
                 </div>
                 </div>
               </form>
@@ -199,70 +211,18 @@
           <!--/.col (right) -->
     	</div>
     	<!-- /.row -->
-    	<!-- row -->
-    <div class="row col-md-12">
-      <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Categories list</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body col-md-12">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Total phones</th>
-                    <th>Operations</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  	<% 
-		              if(categos != null){	
-			
-						for(categorie c : categos){
-									
-					%>
-					
-					
-					
-					<tr class="<%=c.getId() %>">      
-                   <form action="actionCategorie" method="post">
-                      <td><input style="border: none;background: transparent;" class="<%=c.getId() %>" type="text" name="id" value="<%=c.getId() %>" readonly></td>
-                      <td><input style="border: none;background: transparent;" class="<%=c.getId() %>" type="text" name="name" value="<%=c.getName() %>" disabled></td>
-                      <td><input style="border: none;background: transparent;" class="<%=c.getId() %>" type="text" name="phones" value="<%=cdao.countPhonesByCategorie(c.getId()) %>" readonly></td>
-                      <td class="tddis" ><input  class="<%=c.getId() %> btn btn-danger" id="supprimer" type="submit" name="action" value="delete"><input   class="<%=c.getId() %> btn btn-warning" id="modifier" type="button" name="action" value="update" onclick="update(<%=c.getId() %>)"></td>
-                  </form>
-               
-                  </tr>
-                   
-                	<%}}else{ %>
-									<p style="color:red;"><i style="margin-right:10px;" class="fa-solid fa-triangle-exclamation"></i>UNE ERREUR EST SURVENUE</p>
-					<%} %>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Total phones</th>
-                    <th>Operations</th>
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->                       
-    </div>
-    <!-- /.row -->
-      </div>
-    </section>
-
-
+	  </div>
+	</section>
 </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,6 +246,8 @@
 <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- Bootstrap Switch -->
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- BS-Stepper -->
@@ -295,8 +257,6 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/script.js"></script>
-
 <script src="dist/js/demo.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -317,9 +277,62 @@
 <!-- Change Rows to input by clicking Update button -->
 
 
-	alert(<%=res%>);
+function update(id){
+	
+
+	var input = document.querySelectorAll("input");
+	var but =  document.getElementsByName("action");
+	var row = document.querySelectorAll("tr");
+	var delet = "";
+	var del = "";
+	var Srow = "";
+	var update = "";
+
+	for(var i = 0 ; i < but.length ; i++){
+		if(but[i].value === "update" && but[i].classList[0] == id){
+			update = but[i];	
+		}
+		
+	}
+		
+	for(var i = 0 ; i < row.length ; i++){
+		if(row[i].classList[0] == id){	
+			Srow = row[i];			
+			Srow.style = "background-color: #b5b5b544;"
+		}
+	}
+	
+	for(var i = 0 ; i < input.length ; i++){
+	if(input[i].classList[0] == id){	
+		if(input[i].disabled){
+			input[i].disabled = false;
+		}
+		
+		if(input[i].value === "delete"){
+			delet = input[i];
+			delet.value ="cancel";
+			
+		}
+	
+	}
+	
+	update.onclick = function(){
+		
+		Srow.style = "background-color: white;"
+		this.type="submit";
+		delet.value = "delete";
+	}	
+	
+
+}
+}
+
+
 
   $(function () {
+	  
+	  bsCustomFileInput.init();
+
     //Initialize Select2 Elements
     $('.select2').select2()
 
@@ -470,7 +483,6 @@
     });
   });
 </script>
-
 
 </body>
 </html>

@@ -3,11 +3,11 @@ package entities;
 import java.sql.Date;
 import java.util.*;
 
-public class command {
+public class order {
 	
 	
 	private int id;
-	private List<Integer> products;
+	private ArrayList<Integer> products;
 	private Date date;
 	private double total;
 	private int client;
@@ -15,7 +15,7 @@ public class command {
 	
 	
 
-	public command() {
+	public order() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,14 +36,14 @@ public class command {
 
 
 
-	public List<Integer> getProducts() {
+	public ArrayList<Integer> getProducts() {
 		return products;
 	}
 
 
 
 
-	public void setProducts(List<Integer> products) {
+	public void setProducts(ArrayList<Integer> products) {
 		this.products = products;
 	}
 

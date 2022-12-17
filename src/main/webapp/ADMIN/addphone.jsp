@@ -1,9 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+      <%@page import="java.util.*"%>
+  <%@page import="java.io.*"%>
+  <%@page import="entities.categorie"%>
+  <%@page import="dao.categorieDAO"%>
+  <%@page import="entities.phone"%>
+  <%@page import="dao.phoneDAO"%>
+  
+  <%
+
+  
+  
+	  int res;
+	
+	  if(request.getParameter("res") != null){
+	  	
+	  	res = Integer.parseInt(request.getParameter("res"));
+	  	
+	  }else{
+	  	
+	  	res = 0;
+	  }
+
+	session.setAttribute("source", "addPhone.jsp");
+	
+	categorieDAO cdao = new categorieDAO();
+	
+	ArrayList<categorie> categos = cdao.getcategories();
+	
+	phoneDAO pdao = new phoneDAO();
+	
+	ArrayList<phone> phones = pdao.getPhones();
+	
+%>
+    
+  
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -44,8 +80,59 @@
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+  	.tddis{
+  		display:flex;
+  		justify-content:space-between;
+  	}
+  	.alertG{
+		
+	position: absolute;
+    top: 50px;
+    left: 40%;
+    background-color: #d1e7dd;
+    width: fit-content;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 10px;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+    font-family: var(--font-rolway);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    z-index:500;
+    
+    
+	
+}
+
+.alertR{
+	
+	position: absolute;
+    top:50px;
+    left: 40%;
+    background-color: #f8d7da;
+    width: fit-content;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 10px;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    font-family: var(--font-rolway);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    z-index:500;
+	
+}
+  </style>
 </head>
-<body>
+
 
 <jsp:include page="navbar.jsp"></jsp:include>  
 
@@ -53,17 +140,19 @@
 
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    <div id="alert" class="alertG" >
+		  </div>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Categories</h1>
+            <h1 class="m-0">Add phone</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Categories v1</li>
+              <li class="breadcrumb-item active">Add phone</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -74,23 +163,80 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      	<div class="row">
+    		<div class="row">
           <!-- right column -->
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Ajouter Commande</h3>
+                <h3 class="card-title">Add new phone</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="controlers/Addcommande.php" method="post">
+              <form action="actionPhone" method="post" enctype="multipart/form-data">
                 <div class="card-body">
-                
+                	<div class="col-md-12">
+                	  <div class="form-group">
+                        <label for="exampleInputFile">Phone image</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="image" required>
+                            <label class="custom-file-label" for="exampleInputFile">Choose image</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                	<div class="col-md-12">
+                		<div class="row">
+	                		<div class="col-md-6">
+		                       <div class="form-group">
+		                         <label for="categorie">Phone name</label>
+		                         <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
+		                       </div>
+	                       </div>
+	                       <div class="col-md-6">
+		                       <div class="form-group">
+				                  <label>Categorie</label>
+				                  <select class="form-control select2" style="width: 100%;" name="categorie" required>
+				                    <%if(categos != null){ 
+								  for(categorie c : categos){
+										
+								   %>
+								    <option value="<%=c.getId() %>"><%=c.getName() %></option>
+								  <% }} %>
+				                  </select>
+				                </div>
+	                       </div>
+                       </div>
+                    </div>
+                    <div class="col-md-12">
+                      	<!-- textarea -->
+                      	<div class="form-group">
+                        	<label>Description</label>
+                        	<textarea class="form-control" rows="2" name="description" placeholder="Description ..." required></textarea>
+                      	</div>
+                    </div>
+                    <div class="col-md-12">
+                		<div class="row">
+	                		<div class="col-md-6">
+		                       <div class="form-group">
+		                         <label for="categorie">Price</label>
+		                         <input type="text" class="form-control" name="price" id="price" placeholder="Price" required>
+		                       </div>
+	                       </div>
+	                       <div class="col-md-6">
+		                       <div class="form-group">
+		                         <label for="categorie">Quantity</label>
+		                         <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity" required>
+		                       </div>
+	                       </div>
+                       </div>
+                    </div>
                 <div>
                 <div class="card-footer">
-                      <button type="submit" name="Ajouter" value="Commande" class="btn btn-primary">Ajouter</button>
-                      <button type="reset" class="btn btn-danger">Annuler</button>
+                      <button type="submit" name="a" value="Add" class="btn btn-primary">Add</button>
+                      <button type="reset" class="btn btn-danger">Clear</button>
+                </div>
                 </div>
                 </div>
               </form>
@@ -98,10 +244,17 @@
             <!-- /.card -->
           </div>
           <!--/.col (right) -->
-    </div>
-    <!-- /.row -->
-      </div>
-    </section>
+    	</div>
+    	<!-- /.row -->
+	  </div>
+	</section>
+</div>
+
+
+
+
+
+
 
 
 
@@ -128,6 +281,8 @@
 <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- Bootstrap Switch -->
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- BS-Stepper -->
@@ -138,6 +293,7 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="dist/js/script.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -153,7 +309,16 @@
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- Page specific script -->
 <script>
+
+<!-- Change Rows to input by clicking Update button -->
+
+alert(<%=res%>);
+
+
   $(function () {
+	  
+	  bsCustomFileInput.init();
+
     //Initialize Select2 Elements
     $('.select2').select2()
 
@@ -304,7 +469,6 @@
     });
   });
 </script>
-
 
 </body>
 </html>

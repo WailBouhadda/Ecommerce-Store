@@ -50,13 +50,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="phones.jsp" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Phones</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="addPhone.jsp" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add phone</p>
                 </a>
@@ -72,7 +72,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="orders.jsp" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Orders
@@ -81,7 +81,7 @@
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
               </p>

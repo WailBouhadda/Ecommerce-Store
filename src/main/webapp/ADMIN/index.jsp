@@ -27,9 +27,9 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
-<body>
 
-  
+
+ 
 
 <jsp:include page="navbar.jsp"></jsp:include>  
 
@@ -204,7 +204,9 @@
         </div>
 	  </div>
 	</section>
+	</div>
 </div>
+
 
 
 <!-- jQuery -->
