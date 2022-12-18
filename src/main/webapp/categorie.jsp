@@ -77,7 +77,7 @@ ArrayList<phone> phones = pdao.getPhonesByCategorieId(c.getId());
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span><%=phones.size() %></span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">

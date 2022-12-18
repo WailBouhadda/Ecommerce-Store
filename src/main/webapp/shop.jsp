@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span><%=phones.size() %></span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -97,9 +97,7 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="phones/<%=p.getImage()%>">
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="phone.jsp?id=<%=p.getId() %>"><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">

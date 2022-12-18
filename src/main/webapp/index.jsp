@@ -107,13 +107,11 @@
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="phones/<%=p.getImage()%>">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="phone.jsp?id=<%=p.getId() %>"><i class="fa fa-eye"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#"><%=p.getName() %></a></h6>
+                            <h6><a href="phone.jsp?id=<%=p.getId() %>"><%=p.getName() %></a></h6>
                             <h5>$<%=p.getPrice() %></h5>
                         </div>
                     </div>

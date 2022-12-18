@@ -4,6 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import org.apache.catalina.tribes.util.Arrays;
+
+import com.mysql.cj.util.StringUtils;
 
 import entities.order;
 import tools.DBConnection;
@@ -31,15 +39,25 @@ public class orderDAO {
 					order o = new order();
 					
 					o.setId(rs.getInt(1));
-					o.setDate(rs.getDate(3));
-					o.setTotal(rs.getDouble(4));
+					o.setCountry(rs.getString(2));
+					o.setAdress(rs.getString(3));
+					o.setZipcode(rs.getString(4));
+					o.setDate(rs.getDate(6));
+					o.setTotal(rs.getDouble(7));
+					o.setNote(rs.getString(8));
 					o.setClient(rs.getInt(5));
 					
-					String prod[] =  rs.getString(2).split(",");
-					ArrayList<Integer> prods = new ArrayList<Integer>();
+					String prod[] =  rs.getString(2).split(":");
+					ArrayList<Integer[]> prods = new ArrayList<Integer[]>();
 					
 					for(String p: prod) {
-						prods.add(Integer.parseInt(p));
+						String PQ[] = p.split(",");
+						Integer elInt[] = new Integer[2];
+						
+						elInt[0] = Integer.parseInt(PQ[0]);
+						elInt[1] = Integer.parseInt(PQ[1]);
+						
+						prods.add(elInt);
 					}
 					
 					o.setProducts(prods);
@@ -66,7 +84,7 @@ public class orderDAO {
 		
 		if(DBConnection.connect() != null) {
 			
-			rs = DBConnection.get("select * from order where client = "+id+" order by date");
+			rs = DBConnection.get("select * from command where client = "+id+" order by date");
 			
 			try {
 				while(rs.next()) {
@@ -74,15 +92,26 @@ public class orderDAO {
 					order o = new order();
 					
 					o.setId(rs.getInt(1));
-					o.setDate(rs.getDate(3));
-					o.setTotal(rs.getDouble(4));
+					o.setCountry(rs.getString(2));
+					o.setAdress(rs.getString(3));
+					o.setZipcode(rs.getString(4));
+					o.setDate(rs.getDate(6));
+					o.setTotal(rs.getDouble(7));
+					o.setNote(rs.getString(8));
 					o.setClient(rs.getInt(5));
 					
-					String prod[] =  rs.getString(2).split(",");
-					ArrayList<Integer> prods = new ArrayList<Integer>();
+					
+					String prod[] =  rs.getString(2).split(":");
+					ArrayList<Integer[]> prods = new ArrayList<Integer[]>();
 					
 					for(String p: prod) {
-						prods.add(Integer.parseInt(p));
+						String PQ[] = p.split(",");
+						Integer elInt[] = new Integer[2];
+						
+						elInt[0] = Integer.parseInt(PQ[0]);
+						elInt[1] = Integer.parseInt(PQ[1]);
+						
+						prods.add(elInt);
 					}
 					
 					o.setProducts(prods);
@@ -109,8 +138,18 @@ public class orderDAO {
 		
 		if(DBConnection.connect() != null) {
 			
-			String products = o.getProducts().toString();
-			res = DBConnection.update("insert into order(products, total, client) values('"+products+"',"+o.getTotal()+","+o.getClient()+")");
+			ArrayList<String> rows = new ArrayList<String>();
+			for(Integer[] ele:o.getProducts()) {
+				
+				
+				String row = Stream.of(ele).map(String::valueOf).collect(Collectors.joining(","));
+				rows.add(row);
+			}
+			
+			String products = String.join(":", rows);
+			
+			res = DBConnection.update("insert into command(country, adress, zipcode, products, total, note, client) "
+					+ "values('"+o.getCountry()+"','"+o.getAdress()+"','"+o.getZipcode()+"','"+products+"',"+o.getTotal()+",'"+o.getNote()+"',"+o.getClient()+")");
 		}else {
 			res = -1;
 		}

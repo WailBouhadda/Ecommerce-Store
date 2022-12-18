@@ -13,8 +13,6 @@
 
 int id = Integer.parseInt(request.getParameter("id"));
 
-HttpSession ss = request.getSession();
-
 phoneDAO pdao = new phoneDAO();
 
 
@@ -27,6 +25,7 @@ ArrayList<categorie> categos = cdao.getcategories();
 categorie c = cdao.getcategorieById(p.getCategorie());
 
 
+session.setAttribute("source","phone.jsp?id="+p.getId());
 
 
 
@@ -93,15 +92,17 @@ categorie c = cdao.getcategorieById(p.getCategorie());
                         </div>
                         <div class="product__details__price">$<%=p.getPrice() %></div>
                         <p><%=p.getDetails() %></p>
+                        <form action="addToCart" method="post">
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" name="quantity" value="1">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <input style="display:none" type="text" name="id" value="<%=p.getId() %>" >
+                        <input class="primary-btn border-0" type="submit" name="addtocart" value="ADD TO CART" >
+                        </form>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
@@ -154,9 +155,7 @@ categorie c = cdao.getcategorieById(p.getCategorie());
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="phones/<%=p1.getImage() %>">
                             <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="phone.jsp?id=<%=p.getId() %>"><i class="fa fa-eye"></i></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">

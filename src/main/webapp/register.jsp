@@ -52,13 +52,6 @@
 	 <!-- Contact Form Begin -->
     <div class="contact-form spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="contact__form__title">
-                        <h2>Hello</h2>
-                    </div>
-                </div>
-            </div>
             <form action="accountClient" method="post">
                 <div class="row justify-content-center">
                 	<div class="row col-lg-12 justify-content-center">

@@ -17,15 +17,26 @@
 	
 	client cli = (client)session.getAttribute("client");
 	
-	cart cart = new cart();
+	cart cart = null;
+	
 	if(session.getAttribute("cart")!=null){
 		
 		cart = (cart)session.getAttribute("cart");
-		
+		session.setAttribute("cart", cart);
 	}else{
-		ArrayList<Integer> products = new ArrayList<Integer>();
+		
+		cart = new cart();
+		ArrayList<Integer[]> products = new ArrayList<Integer[]>();
 		cart.setProducts(products);
 		cart.setTotal(0);
+		session.setAttribute("cart", cart);
+	}
+	
+	int nbpro = 0;
+	
+	for(Integer[] pr : cart.getProducts()){
+		
+		nbpro += pr[1];
 	}
 	
 %>
@@ -71,7 +82,7 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="cart.jsp"><i class="fa fa-shopping-bag"></i> <span><%=cart.getProducts().size() %></span></a></li>
+                <li><a href="cart.jsp"><i class="fa fa-shopping-bag"></i> <span><%=nbpro %></span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$<%=cart.getTotal() %></span></div>
         </div>
@@ -170,7 +181,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="car.jsp"><i class="fa fa-shopping-bag"></i> <span><%=cart.getProducts().size() %></span></a></li>
+                            <li><a href="cart.jsp"><i class="fa fa-shopping-bag"></i> <span><%=nbpro %></span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$<%=cart.getTotal() %></span></div>
                     </div>

@@ -10,15 +10,15 @@ public class cart {
 
 	
 	
-	private ArrayList<Integer> products;
+	private ArrayList<Integer[]> products;
 	private double total;
 	
 	
 	
-	public ArrayList<Integer> getProducts() {
+	public ArrayList<Integer[]> getProducts() {
 		return products;
 	}
-	public void setProducts(ArrayList<Integer> products) {
+	public void setProducts(ArrayList<Integer[]> products) {
 		this.products = products;
 	}
 	public double getTotal() {

@@ -34,5 +34,30 @@
       <url-pattern>/accountClient</url-pattern>
    </servlet-mapping>
    
+     <servlet>
+      <servlet-name>addToCart</servlet-name>
+      <servlet-class>controlers.addToCart</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>addToCart</servlet-name>
+      <url-pattern>/addToCart</url-pattern>
+   </servlet-mapping>
    
+    <servlet>
+      <servlet-name>removeFromCart</servlet-name>
+      <servlet-class>controlers.removeFromCart</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>removeFromCart</servlet-name>
+      <url-pattern>/removeFromCart</url-pattern>
+   </servlet-mapping>
+   
+   <servlet>
+      <servlet-name>checkout</servlet-name>
+      <servlet-class>controlers.checkout</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>checkout</servlet-name>
+      <url-pattern>/checkout</url-pattern>
+   </servlet-mapping>
 </web-app>
