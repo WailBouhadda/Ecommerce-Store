@@ -12,6 +12,11 @@
   
 <%
 
+	if(session.getAttribute("admin") == null){
+		 
+  		response.sendRedirect("login.jsp");
+  	}
+
 	int res;
 	
 	if(request.getParameter("res") != null){
@@ -45,6 +50,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Categories</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

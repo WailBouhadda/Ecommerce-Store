@@ -9,10 +9,15 @@
   <%@page import="dao.phoneDAO"%>
   <%@page import="entities.order"%>
   <%@page import="dao.orderDAO"%>
+  <%@page import="entities.client"%>
+  <%@page import="dao.clientDAO"%>
   
   <%
   
-  
+	if(session.getAttribute("admin") == null){
+		 
+  		response.sendRedirect("login.jsp");
+  	}
   	int res;
 	
 	if(request.getParameter("res") != null){
@@ -49,7 +54,8 @@
 <html>
 <head>
 
-
+	<title>Orders</title>
+	
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -191,7 +197,7 @@
                     <th>Total</th>
                     <th>Status</th>
                     <th>Client</th>
-                    <th>Operations</th>
+                    <th>Country</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -201,6 +207,10 @@
 						for(order o : orders){
 							
 							//categorie c = cdao.getcategorieById(p.getCategorie());
+								clientDAO clidao = new clientDAO();
+
+									client cli = clidao.getClientById(o.getClient());
+									
 									
 					%>
 					
@@ -210,11 +220,17 @@
                   
                       <td><%=o.getId() %></td>
                       <td><%=o.getDate() %></td>
-                      <td><%=o.getProducts() %></td>
+                      <td>
+                      	<%for(Integer[] pr:o.getProducts()){
+                      		phone ph = pdao.getPhoneById(pr[0]);
+                      	%>
+                    	<<%=pr[1] %> : <%=ph.getName() %>> 
+                      	<%} %>
+                      </td>
                       <td><%=o.getTotal() %></td>
                       <td><span class="badge badge-success">Shipped</span></td>                      
-                      <td><%=o.getClient() %></td>
-                      <td class="tddis" ><a  class="btn btn-danger" id="supprimer" href="actionPhone?d=<%=o.getId() %>" >Delete</a><a  class="btn btn-warning" id="supprimer" href="updatePhone.jsp?p=<%=o.getId() %>" >Update</a></td>               
+                      <td><%=cli.getEmail() %></td>
+                      <td ><%=o.getCountry() %></td>               
                   	
                   	</tr>
                    
@@ -230,7 +246,7 @@
                     <th>Total</th>
                     <th>Status</th>
                     <th>Client</th>
-                    <th>Operations</th>
+                    <th>Country</th>
                   </tr>
                   </tfoot>
                 </table>

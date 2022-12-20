@@ -8,10 +8,10 @@
   
   	admin a = new admin();
   
-  	if(session.getAttribute("admin") != null){
-  		a = (admin)session.getAttribute("admin");
-  	}else{
+  	if(session.getAttribute("admin") == null){
   		response.sendRedirect("login.jsp");
+  	}else{
+  		a = (admin)session.getAttribute("admin");
   	}
   
   %>
@@ -105,7 +105,7 @@
             </a>
           </li> 
           <li class="nav-item">
-            <a href="logout" class="nav-link">
+            <a href="actionAdmin?action=Logout" class="nav-link">
               <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Logout

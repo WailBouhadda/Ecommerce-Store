@@ -10,6 +10,10 @@
   
   <%
   
+	if(session.getAttribute("admin") == null){
+		 
+  		response.sendRedirect("login.jsp");
+  	}
   	
   		int id  = -1;
   		if(request.getParameter("p")!= null){
@@ -51,7 +55,8 @@
 <html>
 <head>
 
-
+	<title>Update Phone</title>
+	
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->

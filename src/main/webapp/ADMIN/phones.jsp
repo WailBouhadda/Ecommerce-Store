@@ -9,7 +9,10 @@
   <%@page import="dao.phoneDAO"%>
   
   <%
-  
+	if(session.getAttribute("admin") == null){
+		 
+  		response.sendRedirect("login.jsp");
+  	}
   
   	int res;
 	
@@ -43,6 +46,7 @@
 <html>
 <head>
 
+<title>Phones</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

@@ -27,6 +27,32 @@ public class adminLogin extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		int res = 0;
+		HttpSession ss = request.getSession();
+		
+		String source = (String) ss.getAttribute("source");
+		
+		clientDAO cdao = new clientDAO();
+		admin admin = new admin();
+		
+		if(request.getParameter("action")!=null) {
+			
+			 if(request.getParameter("action").equals("Logout")) {
+				
+				HttpSession session=request.getSession(false);
+				session.removeAttribute("admin");
+				session.invalidate();
+				response.sendRedirect("login.jsp");
+			}else {
+				response.sendRedirect("index.jsp");
+			}
+		}
+		
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -11,7 +11,10 @@
   <%
 
   
-  
+	if(session.getAttribute("admin") == null){
+		 
+  		response.sendRedirect("login.jsp");
+  	}
 	  int res;
 	
 	  if(request.getParameter("res") != null){
@@ -39,6 +42,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Add Phone</title>
 
 
   <!-- Google Font: Source Sans Pro -->
