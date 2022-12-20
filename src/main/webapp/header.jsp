@@ -98,18 +98,15 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a href="index.jsp">Home</a></li>
+                <li><a href="shop.jsp">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
+                        <li><a href="shop.jsp">Shop</a></li>
+                        <li><a href="cart.jsp">Shoping Cart</a></li>
+                        <li><a href="checkout.jsp">Check Out</a></li>
                     </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -121,7 +118,7 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li><i class="fa fa-envelope"></i> wailbouhadda31@gmail.com</li>
                 <li>Free Shipping for all Order of $1500</li>
             </ul>
         </div>
@@ -136,7 +133,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li><i class="fa fa-envelope"></i> wailbouhadda31@gmail.com</li>
                                 <li>Free Shipping for all Order of $1500</li>
                             </ul>
                         </div>
@@ -173,7 +170,7 @@
                         <ul>
                             <li class="active"><a href="index.jsp">Home</a></li>
                             <li><a href="shop.jsp">Shop</a></li>
-                            <li><a href="contact.jsp">Contact</a></li>
+                            <li><a href="checkout.jsp">Checkout</a></li>
                             <li><a href="cart.jsp">Cart</a></li>
                         </ul>
                     </nav>
@@ -212,7 +209,7 @@
 								categorie c = new categorie();
 								c = categos.get(i);
 						%>
-                            <li><a href="Categorie?c=<%=c.getId()%>"><%=c.getName()%></a></li>
+                            <li><a href="categorie.jsp?c=<%=c.getId()%>"><%=c.getName()%></a></li>
                             
                         <%}}else{ %>
 							<p style="color:red;"><i style="margin-right:10px;" class="fa-solid fa-triangle-exclamation"></i>UNE ERREUR EST SURVENUE</p>
@@ -223,12 +220,8 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="What do yo u need?">
+                            <form action="search.jsp">
+                                <input type="text" placeholder="What do yo u need?" name="str">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>

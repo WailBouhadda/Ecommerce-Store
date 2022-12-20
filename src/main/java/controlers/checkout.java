@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import dao.clientDAO;
 import dao.orderDAO;
@@ -41,6 +42,8 @@ public class checkout extends HttpServlet {
 		orderDAO odao = new orderDAO();
 		order o = new order();
 		
+
+		
 		if(request.getParameter("placeorder") != null) {
 			
 			String email = request.getParameter("email");
@@ -55,6 +58,9 @@ public class checkout extends HttpServlet {
 			if(c != null) {
 				
 				cart cart = (cart)s.getAttribute("cart");
+				
+				ArrayList<Integer[]> products = new ArrayList<Integer[]>();
+				
 				o.setCountry(request.getParameter("country"));
 				o.setAdress(request.getParameter("adress"));
 				o.setZipcode(request.getParameter("zipcode"));
@@ -65,6 +71,11 @@ public class checkout extends HttpServlet {
 				
 				
 				res = odao.addOrder(o);
+				
+				cart.setProducts(products);			
+				cart.setTotal(0);
+				
+				s.setAttribute("cart", cart);
 				
 				request.getRequestDispatcher("index.jsp?res="+res).forward(request, response);
 				

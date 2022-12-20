@@ -171,6 +171,9 @@ public class phoneDAO {
 	
 	/* --- End Get poste by categorie id --- */
 	
+	
+	
+	
 
 	public int deletePhoneById(int id) {
 		int statut = 0;
@@ -211,5 +214,47 @@ public class phoneDAO {
 		return res;
 	}
 	
+	/* --- Start search phones --- */
+
+	public ArrayList<phone> searchPhones(String inp){
+		
+		ArrayList<phone> phones = new ArrayList<phone>();
+		
+		if(DBConnection.connect() != null) {		
+			try {
+				
+				rs = DBConnection.get("select * from phone where  LOWER(name) = LOWER('"+inp+"') or categorie in (select id from categorie where LOWER(name) = LOWER('"+inp+"'))");
+				
+				while(rs.next()) {
+					
+					phone p = new phone();
+					
+					p.setId(rs.getInt(1));
+					p.setName(rs.getString(2));
+					p.setDetails(rs.getString(3));
+					p.setImage(rs.getString(4));
+					p.setQuantity(rs.getInt(5));
+					p.setPrice(rs.getDouble(6));
+					p.setDate(rs.getDate(7));
+					p.setCategorie(rs.getInt(8));
+					
+					phones.add(p);
+				}
+	
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+			}else {
+				phones = null;
+			}
+		return phones;
+	}
+	
+	
+	/* --- End search phones --- */
 	
 }

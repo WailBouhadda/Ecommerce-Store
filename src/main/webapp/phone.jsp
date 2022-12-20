@@ -43,7 +43,7 @@ session.setAttribute("source","phone.jsp?id="+p.getId());
 	
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -70,12 +70,6 @@ session.setAttribute("source","phone.jsp?id="+p.getId());
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
                                 src="phones/<%=p.getImage() %>" alt="">
-                        </div>
-                        <div class="product__details__pic__slider owl-carousel">
-                        <%for(int i = 0 ; i<5 ; i++){ %>
-                            <img data-imgbigurl="phones/<%=p.getImage() %>"
-                                src="phones/<%=p.getImage() %>" alt="">
-                        <%} %>
                         </div>
                     </div>
                 </div>
@@ -155,7 +149,7 @@ session.setAttribute("source","phone.jsp?id="+p.getId());
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="phones/<%=p1.getImage() %>">
                             <ul class="product__item__pic__hover">
-                                <li><a href="phone.jsp?id=<%=p.getId() %>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="phone.jsp?id=<%=p1.getId() %>"><i class="fa fa-eye"></i></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">

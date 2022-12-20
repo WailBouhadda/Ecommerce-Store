@@ -45,18 +45,22 @@ public class orderDAO {
 					o.setDate(rs.getDate(6));
 					o.setTotal(rs.getDouble(7));
 					o.setNote(rs.getString(8));
-					o.setClient(rs.getInt(5));
+					o.setClient(rs.getInt(9));
 					
-					String prod[] =  rs.getString(2).split(":");
+					String[] prod =  rs.getString(5).split(":");
 					ArrayList<Integer[]> prods = new ArrayList<Integer[]>();
 					
 					for(String p: prod) {
+						System.out.println(p);
+						
 						String PQ[] = p.split(",");
 						Integer elInt[] = new Integer[2];
-						
 						elInt[0] = Integer.parseInt(PQ[0]);
 						elInt[1] = Integer.parseInt(PQ[1]);
 						
+						System.out.println(prod[0]);
+
+
 						prods.add(elInt);
 					}
 					
@@ -98,10 +102,10 @@ public class orderDAO {
 					o.setDate(rs.getDate(6));
 					o.setTotal(rs.getDouble(7));
 					o.setNote(rs.getString(8));
-					o.setClient(rs.getInt(5));
+					o.setClient(rs.getInt(9));
 					
 					
-					String prod[] =  rs.getString(2).split(":");
+					String prod[] =  rs.getString(5).split(":");
 					ArrayList<Integer[]> prods = new ArrayList<Integer[]>();
 					
 					for(String p: prod) {

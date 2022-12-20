@@ -43,8 +43,7 @@ cart cart = (cart)session.getAttribute("cart");
                     <div class="breadcrumb__text">
                         <h2>Cart</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <a href="./index.html">Cart</a>
+                            <a href="index.jsp">Home</a>
                             <span>Cart</span>
                         </div>
                     </div>

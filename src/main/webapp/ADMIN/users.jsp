@@ -217,7 +217,7 @@
                       <td><%=u.getLastName() %></td>
                       <td><%=u.getEmail() %></td>
                       <td><%=u.getPhone() %></td>
-                      <td class="tddis" ><button   class="btn btn-success" id="supprimer" onclick="<%cid = u.getId(); %>" ><i class="fas fa-eye" style="margin-right:5px;"></i>Orders</button></td>               
+                      <td class="tddis" ><button   class="btn btn-success" id="supprimer"><i class="fas fa-eye" style="margin-right:5px;"></i><a style="color:white" href="users.jsp?id=<%=u.getId() %>">Orders</a></button></td>               
                   	
                   	</tr>
                    
@@ -248,18 +248,27 @@
     
         
     <%
-    if(users.size() >0){
+
 		
-		int size = 0; 
 		
-		if(users.size() > 3){
+		
+		if(request.getParameter("id") != null){
 			
-			size = 3;
-		}else{
-			size = users.size();
-		}
-		
-	for(int i = 0 ; i < size ; i++){}}
+			ArrayList<order> orders = odao.getOrdersByClient(Integer.parseInt(request.getParameter("id")));
+			
+			
+		    if(orders.size() >0){
+				
+				int size = 0; 
+				
+				if(orders.size() > 3){
+					
+					size = 4;
+				}else{
+					size = orders.size();
+				}
+				
+	
 	%>
     
     <!-- row -->
@@ -271,10 +280,17 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body col-md-12">
-					<div class="col-md-3">
+              <div class="row">
+              <%		for(int i = 0 ; i < size ; i++){
+          		
+      			
+  						order o = orders.get(i);
+  				
+  				%>
+					<div class="col-lg-3 col-6">
 		            <div class="card card-danger">
 		              <div class="card-header">
-		                <h3 class="card-title"><%=cid %></h3>
+		                <h3 class="card-title"><%=o.getDate() %></h3>
 		
 		                <div class="card-tools">
 		                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
@@ -284,13 +300,18 @@
 		              </div>
 		              <!-- /.card-header -->
 		              <div class="card-body">
-		                The body of the card
+		                	<p>Total : <%=o.getTotal() %>
+		                	<p>Adress : <%=o.getAdress() %>
+		                	<p>Note : <%=o.getNote() %>
+		                	
 		              </div>
 		              <!-- /.card-body -->
 		            </div>
 		            <!-- /.card -->
 		          </div>
 		          <!-- /.col -->
+		           <% }%>
+		           </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -299,7 +320,7 @@
           <!-- /.col -->                       
     </div>
     <!-- /.row -->
-
+	<%}} %>
 	
    </div>
  </section>

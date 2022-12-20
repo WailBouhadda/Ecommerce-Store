@@ -20,11 +20,17 @@ ArrayList<categorie> categos = cdao.getcategories();
 
 
 
+
+
 session.setAttribute("source","cart.jsp");
 
 cart cart = (cart)session.getAttribute("cart");
 
-
+if(session.getAttribute("client") == null){
+	response.sendRedirect("login.jsp");
+}else if(cart.getTotal() == 0){
+	response.sendRedirect("cart.jsp");
+}
 			
 %>
 
