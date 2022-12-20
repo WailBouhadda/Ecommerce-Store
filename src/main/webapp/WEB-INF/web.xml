@@ -24,7 +24,16 @@
       <servlet-name>actionPhone</servlet-name>
       <url-pattern>/ADMIN/actionPhone</url-pattern>
    </servlet-mapping>
-   
+
+   <servlet>
+      <servlet-name>actionAdmin</servlet-name>
+      <servlet-class>controlers.adminLogin</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>actionAdmin</servlet-name>
+      <url-pattern>/ADMIN/actionAdmin</url-pattern>
+   </servlet-mapping>
+  
    <servlet>
       <servlet-name>accountClient</servlet-name>
       <servlet-class>controlers.accountClient</servlet-class>

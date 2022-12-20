@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entities.admin;
 import entities.client;
 import tools.DBConnection;
 
@@ -135,6 +136,32 @@ public client register(client c) {
 	}
 	return c1;
 	
+}
+
+
+public admin adminLogin(String email, String password) {
+	admin a = null;
+	
+	if(DBConnection.connect()!=null) {
+		
+		
+		rs = DBConnection.get("select * from admin where email ='"+email+"' and password ='"+password+"'");
+		
+		try {
+			while(rs.next()) {
+				a = new admin();
+				a.setId(rs.getInt(1));
+				a.setName(rs.getString(2));
+				a.setEmail(rs.getString(3));
+				a.setPassword(rs.getString(4));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return a;
 }
 	
 }

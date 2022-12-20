@@ -92,14 +92,7 @@ public class actionPhone extends HttpServlet {
 		p.setCategorie(Integer.parseInt(request.getParameter("categorie")));
 		p.setPrice(Double.parseDouble(request.getParameter("price")));
 		p.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-		
-		
-		String imageFileName=  name.replaceAll("\\s", "")+".jpg"; //get selected image file name
-		p.setImage(imageFileName);
-		
-		String uploadPath= getServletContext().getRealPath("/")+"phones\\"+imageFileName;  // upload path where we have to upload our actual image
 	
-		
 		
 		
 		Part part = request.getPart("image");

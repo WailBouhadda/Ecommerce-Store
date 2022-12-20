@@ -1,4 +1,21 @@
 
+  <%@page import="entities.admin"%>
+  <%@page import="dao.clientDAO"%>
+  
+  <%
+  
+  	clientDAO adao = new clientDAO();
+  
+  	admin a = new admin();
+  
+  	if(session.getAttribute("admin") != null){
+  		a = (admin)session.getAttribute("admin");
+  	}else{
+  		response.sendRedirect("login.jsp");
+  	}
+  
+  %>
+  
   
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -11,7 +28,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><%=a.getName() %></a>
         </div>
       </div>
 
