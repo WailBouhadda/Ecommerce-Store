@@ -84,7 +84,6 @@ public class actionPhone extends HttpServlet {
 		
 		
 		// Add phone
-		Part file = request.getPart("image");
 		
 		String name = request.getParameter("name");
 		p.setName(name);
@@ -101,7 +100,9 @@ public class actionPhone extends HttpServlet {
         String path = getServletContext().getRealPath("/"+"phones"+File.separator+fileName);
         
         InputStream is = part.getInputStream();
-		
+        
+        p.setImage(fileName);
+
 		
 		try{
             byte[] byt = new byte[is.available()];
@@ -138,14 +139,9 @@ public class actionPhone extends HttpServlet {
 			p.setPrice(Double.parseDouble(request.getParameter("price")));
 			p.setQuantity(Integer.parseInt(request.getParameter("quantity")));
 			
-			if(request.getPart("image") != null) {
-				
-				Part file = request.getPart("image");
-				String imageFileName=  name.replaceAll("\\s", "")+".jpg"; //get selected image file name
-				p.setImage(imageFileName);
-				
-				String uploadPath= getServletContext().getRealPath("/")+"phones\\"+imageFileName;  // upload path where we have to upload our actual image
+
 			
+			if(request.getPart("image") != null) {
 				
 				
 				
@@ -156,7 +152,8 @@ public class actionPhone extends HttpServlet {
 		        
 		        InputStream is = part.getInputStream();
 				
-				
+	            p.setImage(fileName);
+
 				try{
 		            byte[] byt = new byte[is.available()];
 		            is.read(byt);
