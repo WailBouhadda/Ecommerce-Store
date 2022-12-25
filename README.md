@@ -6,7 +6,7 @@
   <li>For the Website i used OGANI template it's a free template</li>
   <li>For the Admin control panel i used AdminLTE free Template </li>
   <li>Front-end : HTML, CSS ,JS</li>
-  <li>Back-end : JAVA EE</li>
+  <li>Back-end : JAVA EE Maven</li>
   <li>DATABASE : MYsql</li>
 </ul>
 
