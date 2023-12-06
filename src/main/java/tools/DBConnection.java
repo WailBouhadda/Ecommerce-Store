@@ -19,8 +19,8 @@ public class DBConnection {
 		
 		
 		private	static String url 		= "jdbc:mysql://localhost:3306/ecomercedb";
-		private	static String username = "root";
-		private	static String pass 	= "";	
+		private	static String username = "user";
+		private	static String pass 	= "root";	
 
 		
 		public static  Connection connect()  {
